@@ -1,0 +1,7 @@
+zone,n_shots,total_xga,avg_xg,n_goals,conv_rate,xga_per_match
+Surface centrale,136,26.4768,0.1947,26,0.1912,0.756
+Hors zone,108,5.8957,0.0546,5,0.0463,0.168
+Half-space gauche,26,0.7512,0.0289,2,0.0769,0.021
+Half-space droit,18,0.491,0.0273,0,0.0,0.014
+Zone distante,1,0.0056,0.0056,0,0.0,0.0
+Couloir droit,1,0.0034,0.0034,0,0.0,0.0

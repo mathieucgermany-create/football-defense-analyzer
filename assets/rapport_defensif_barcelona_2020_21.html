@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport Défensif - FC Barcelona 20/21</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #1A365D; /* Bleu nuit pro */
+            --brand-secondary: #2B6CB0; /* Bleu action */
+            --brand-accent: #E53E3E; /* Rouge danger (xGA) */
+            --brand-success: #38A169; /* Vert positif */
+            --text-main: #2D3748;
+            --text-muted: #718096;
+            --bg-page: #FFFFFF;
+            --bg-alt: #F7FAFC;
+            --border-color: #E2E8F0;
+            --font-main: 'Inter', sans-serif;
+            --font-code: 'Space Mono', monospace;
+        }
+
+        /* Reset & Base */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: var(--font-main); 
+            color: var(--text-main); 
+            background: #CBD5E0; /* Gris autour des pages pour la vue web */
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 10mm auto;
+            background: var(--bg-page);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page:last-child { page-break-after: auto; }
+
+        @media print {
+            body { background: var(--bg-page); }
+            .page { margin: 0; box-shadow: none; padding: 15mm; width: auto; min-height: auto; }
+            @page { size: A4 portrait; margin: 0; }
+        }
+
+        h1, h2, h3, h4 { color: var(--brand-primary); line-height: 1.2; }
+        h1 { font-size: 3rem; font-weight: 700; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.5rem; font-weight: 600; border-bottom: 2px solid var(--brand-secondary); padding-bottom: 0.5rem; margin-bottom: 1.5rem; margin-top: 1rem; color: var(--brand-secondary);}
+        h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; margin-top: 1.5rem; }
+        p { margin-bottom: 1rem; text-align: justify; }
+        
+        .cover-page { justify-content: center; text-align: center; }
+        .cover-subtitle { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 3rem; font-weight: 300; }
+        .cover-meta { margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 2rem; font-size: 0.9rem; color: var(--text-muted); text-align: left; }
+        
+        .page-header { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; }
+        .page-footer { margin-top: auto; text-align: right; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 10px; }
+
+        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 2rem; }
+        .kpi-card { background: var(--bg-alt); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; }
+        .kpi-val { font-size: 2rem; font-weight: 700; color: var(--brand-primary); display: block; line-height: 1; margin-bottom: 5px; }
+        .kpi-val.danger { color: var(--brand-accent); }
+        .kpi-label { font-size: 0.75rem; text-transform: uppercase; font-weight: 600; color: var(--text-muted); }
+
+        .highlights { background: var(--brand-primary); color: white; padding: 20px; border-radius: 8px; margin-bottom: 2rem; }
+        .highlights h3 { color: white; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; margin-top: 0; }
+        .highlights ul { list-style-type: none; margin-left: 0; }
+        .highlights li { margin-bottom: 12px; padding-left: 24px; position: relative; font-size: 0.95rem; }
+        .highlights li::before { content: "→"; position: absolute; left: 0; color: var(--brand-secondary); font-weight: bold; }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; font-size: 0.9rem; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background-color: var(--bg-alt); font-weight: 600; color: var(--brand-primary); text-transform: uppercase; font-size: 0.8rem; }
+        tr:nth-child(even) { background-color: #FAFAFA; }
+        .num { text-align: right; font-family: var(--font-code); }
+        .highlight-row { background-color: rgba(229, 62, 62, 0.05) !important; font-weight: 500; }
+
+        /* Styles pour les vraies images */
+        .real-viz-container { margin-bottom: 2rem; text-align: center; }
+        .real-viz-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid var(--border-color); }
+        .viz-caption { font-size: 0.8rem; text-align: center; color: var(--text-muted); margin-top: 0.5rem; font-style: italic; }
+
+        pre { background: #1E1E1E; color: #D4D4D4; padding: 15px; border-radius: 8px; font-family: var(--font-code); font-size: 0.85rem; overflow-x: auto; margin-bottom: 1.5rem; line-height: 1.4; border-left: 4px solid var(--brand-secondary); }
+        .keyword { color: #569CD6; }
+        .string { color: #CE9178; }
+        .comment { color: #6A9955; font-style: italic; }
+
+        .two-cols { display: flex; gap: 20px; }
+        .col { flex: 1; }
+
+        .reco-list { counter-reset: reco-counter; list-style: none; }
+        .reco-list li { position: relative; padding-left: 40px; margin-bottom: 20px; background: var(--bg-alt); padding: 20px 20px 20px 60px; border-radius: 8px; border-left: 4px solid var(--brand-primary); }
+        .reco-list li::before { counter-increment: reco-counter; content: counter(reco-counter); position: absolute; left: 15px; top: 20px; font-size: 1.5rem; font-weight: 700; color: var(--brand-primary); opacity: 0.3; }
+        .reco-list strong { color: var(--brand-primary); display: block; margin-bottom: 5px; font-size: 1.1rem;}
+    </style>
+</head>
+<body>
+
+    <div class="page cover-page">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 2rem auto;">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="M12 8v4"></path>
+            <path d="M12 16h.01"></path>
+        </svg>
+        <h1>Rapport Défensif</h1>
+        <div class="cover-subtitle">Analyse Spatiale des Vulnérabilités</div>
+        
+        <div style="background: var(--bg-alt); padding: 2rem; border-radius: 12px; display: inline-block; margin: 0 auto;">
+            <h3 style="margin-top: 0; color: var(--brand-secondary);">FC Barcelona</h3>
+            <p style="margin-bottom: 0; font-size: 1.1rem; color: var(--text-main);">La Liga • Saison 2020/21</p>
+        </div>
+
+        <div class="cover-meta">
+            <strong>Projet :</strong> Football Defense Analyzer — Portfolio Data Science<br>
+            <strong>Données :</strong> StatsBomb Open Data (CC BY-SA 4.0)<br>
+            <strong>Méthodologie :</strong> Notebooks 03-09 — Pipeline Python complet<br>
+            <strong>Périmètre :</strong> 35 matchs analysés • 290 tirs concédés • xGA: 33.62 • 33 buts encaissés<br>
+            <strong>Généré le :</strong> 06 Juillet 2026
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>01. Résumé Exécutif</span> <span>FC Barcelona 20/21</span></div>
+        
+        <h2>01. Résumé Exécutif</h2>
+        <p>Cette analyse couvre l'intégralité de la saison 2020/21 de Barcelone en La Liga (35 matchs, 139 000 événements StatsBomb). La méthodologie enchaîne 7 notebooks Python : pipeline événementiel (03), visualisations spatiales (04), modèle xG maison par régression logistique (05), clustering DBSCAN/K-Means (06), analyse de freeze frames (07), comparaison XGBoost vs LogReg avec SHAP (08), et architecture de connecteur API live swap-ready (09).</p>
+        <p><strong>Objectif :</strong> Quantifier et localiser les vulnérabilités défensives pour orienter le travail tactique.</p>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <span class="kpi-val">33.62</span>
+                <span class="kpi-label">xGA Total Concédé</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-val">0.96</span>
+                <span class="kpi-label">xGA par Match</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-val">290</span>
+                <span class="kpi-label">Tirs Concédés</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-val danger">33</span>
+                <span class="kpi-label">Buts Encaissés</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-val">35</span>
+                <span class="kpi-label">Matchs Analysés</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-val danger">26%</span>
+                <span class="kpi-label">Line-Break Rate</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-val danger">541</span>
+                <span class="kpi-label">Pertes Critiques</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-val">2.77</span>
+                <span class="kpi-label">PPDA (Pressing)</span>
+            </div>
+        </div>
+
+        <div class="real-viz-container">
+            <!-- Vraie image du Dashboard KPI -->
+            <img src="v1_dashboard_kpis.png" alt="Dashboard Défensif KPI" class="real-viz-img" style="max-height: 350px;">
+            <div class="viz-caption">Figure 1 - Dashboard de synthèse des KPIs défensifs</div>
+        </div>
+
+        <div class="highlights">
+            <h3>Principaux Enseignements</h3>
+            <ul>
+                <li><strong>La surface centrale</strong> concentre 26.48 xGA sur 33.62 au total (78% du danger). Différence statistiquement significative vs reste du terrain (Mann-Whitney p < 0.001).</li>
+                <li><strong>Le Line Break Rate de 26% :</strong> 61 key passes adverses sur 235 cassent la ligne défensive (>15m de progression). Signal d'un bloc régulièrement pris à vitesse sur les transitions.</li>
+                <li><strong>541 pertes critiques</strong> (15.5/match) dans les 40 derniers mètres. Exposition chronique aux contre-attaques.</li>
+            </ul>
+        </div>
+        <div class="page-footer">Page 2</div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>02. Analyse Spatiale des Tirs</span> <span>FC Barcelona 20/21</span></div>
+        
+        <h2>02. Heatmap des Tirs Concédés</h2>
+        <p>La heatmap de gauche représente la densité brute des tirs concédés. Celle de droite pondère l'intensité par l'Expected Goal (xG) calculé par notre modèle : seules les zones où les tirs sont à la fois nombreux ET dangereux apparaissent en rouge intense. Les étoiles dorées indiquent les buts réellement encaissés.</p>
+
+        <div class="real-viz-container">
+            <!-- Vraie image de la Heatmap -->
+            <img src="v1_heatmap_shots.png" alt="Heatmap des tirs concédés" class="real-viz-img">
+            <div class="viz-caption">Figure 2 - Heatmap KDE brute (gauche) vs pondérée xG (droite) • n=290 tirs • xGA=33.62 • 33 buts</div>
+        </div>
+
+        <h3>Table des KPIs par Zone Tactique</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Zone</th>
+                    <th class="num">Tirs</th>
+                    <th class="num">xGA total</th>
+                    <th class="num">xG moy/tir</th>
+                    <th class="num">Buts</th>
+                    <th class="num">Conv. %</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="highlight-row">
+                    <td>Surface centrale</td>
+                    <td class="num">136</td>
+                    <td class="num" style="color:var(--brand-accent); font-weight:bold;">26.48</td>
+                    <td class="num">0.195</td>
+                    <td class="num">26</td>
+                    <td class="num">19.1%</td>
+                </tr>
+                <tr>
+                    <td>Half-space droit</td>
+                    <td class="num">28</td>
+                    <td class="num">2.30</td>
+                    <td class="num">0.082</td>
+                    <td class="num">2</td>
+                    <td class="num">7.1%</td>
+                </tr>
+                <tr>
+                    <td>Half-space gauche</td>
+                    <td class="num">31</td>
+                    <td class="num">2.10</td>
+                    <td class="num">0.068</td>
+                    <td class="num">3</td>
+                    <td class="num">9.7%</td>
+                </tr>
+                <tr>
+                    <td>Zone distante</td>
+                    <td class="num">54</td>
+                    <td class="num">1.04</td>
+                    <td class="num">0.019</td>
+                    <td class="num">0</td>
+                    <td class="num">0.0%</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="page-footer">Page 3</div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>03. Analyse Temporelle & Pertes</span> <span>FC Barcelona 20/21</span></div>
+        
+        <h2>03. Évolution Temporelle du Danger (xGA)</h2>
+        <p>Le graphique ci-dessous analyse l'évolution de la vulnérabilité barcelonaise tout au long de la saison, en comparant la tendance du xGA cumulé (progression de 0.93 xGA/match) avec la répartition des tirs et de la dangerosité.</p>
+
+        <div class="real-viz-container">
+            <!-- Vraie image Analyse Temporelle -->
+            <img src="v1_comparative_analysis.png" alt="Analyse temporelle et distributions" class="real-viz-img">
+            <div class="viz-caption">Figure 3 - Évolution du xGA cumulé, distribution xG par tir et positions pondérées</div>
+        </div>
+
+        <h2>04. Localisation des Pertes Critiques</h2>
+        <p>Nous avons identifié 541 pertes de balles critiques dans les 40 derniers mètres (plus de 15 pertes par match). La visualisation par estimation de densité par noyau (KDE) souligne une forte exposition dans les couloirs et le half-space droit.</p>
+
+        <div class="real-viz-container">
+            <!-- Vraie image Pertes Critiques -->
+            <img src="v1_critical_losses.png" alt="Pertes de balle critiques" class="real-viz-img">
+            <div class="viz-caption">Figure 4 - KDE des pertes de balle critiques (x > 60m) et distribution spatiale par type</div>
+        </div>
+        
+        <div class="page-footer">Page 4</div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>05. Ruptures de Lignes</span> <span>FC Barcelona 20/21</span></div>
+        
+        <h2>05. Origines et Ruptures de Lignes (Key Passes)</h2>
+        <p>L'analyse des passes clés adverses révèle les failles structurelles de l'organisation défensive. L'Hexmap illustre la densité spatiale des passes amenant un tir. L'Arrow Map isole les 50 passes les plus dangereuses franchissant le bloc équipe (progression > 15m).</p>
+
+        <div class="two-cols">
+            <div class="col">
+                <div class="real-viz-container">
+                    <!-- Vraie image Hexmap -->
+                    <img src="v1_hexmap_keypasses.png" alt="Hexmap Key Passes" class="real-viz-img">
+                    <div class="viz-caption">Figure 5 - Hexmap des passes décisives adverses</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="real-viz-container">
+            <!-- Vraie image Arrow Map -->
+            <img src="v1_arrowmap_linebreaking.png" alt="Arrow Map Line-Breaking" class="real-viz-img">
+            <div class="viz-caption">Figure 6 - Arrow Map : Les 50 passes cassant la ligne défensive depuis les half-spaces</div>
+        </div>
+        
+        <p><strong>Constat :</strong> Une forte asymétrie est visible. Les <em>half-spaces</em> (mis en évidence en orange) sont les zones de lancement privilégiées par les adversaires. Le bloc équipe barcelonais a concédé 61 passes cassant sa ligne défensive, soulignant un manque de compacité à la perte de balle.</p>
+
+        <div class="page-footer">Page 5</div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>06. Machine Learning Spatial</span> <span>FC Barcelona 20/21</span></div>
+        
+        <h2>06. Clustering Spatial Automatique (DBSCAN vs K-Means)</h2>
+        <p>Afin d'isoler mathématiquement les zones de danger sans biais humain, nous avons appliqué des algorithmes d'apprentissage non supervisé. L'algorithme K-Means a été optimisé par la méthode du coude et le score de Silhouette, tandis que le DBSCAN a été calibré via un K-Distance Plot.</p>
+
+        <div class="two-cols">
+            <div class="col">
+                <div class="real-viz-container" style="margin-bottom: 1rem;">
+                    <!-- Vraie image K-Means Elbow -->
+                    <img src="v2_kmeans_elbow.png" alt="K-Means Elbow et Silhouette" class="real-viz-img">
+                    <div class="viz-caption">Figure 7 - Optimisation de k (K-Means) via Elbow et Silhouette</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="real-viz-container" style="margin-bottom: 1rem;">
+                    <!-- Vraie image K-Distance -->
+                    <img src="v2_dbscan_kdistance.png" alt="DBSCAN K-Distance Plot" class="real-viz-img">
+                    <div class="viz-caption">Figure 8 - Calibrage du paramètre eps (DBSCAN) = 14.0m</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="real-viz-container">
+            <!-- Vraie image de Comparaison Clustering -->
+            <img src="v2_clustering_comparison.png" alt="Comparaison DBSCAN, K-Means et Heatmap" class="real-viz-img">
+            <div class="viz-caption">Figure 9 - Visualisation comparative : Le DBSCAN (gauche) identifie organiquement la zone de tir la plus dense, indépendamment des formes géométriques strictes imposées par K-Means (centre).</div>
+        </div>
+
+        <div class="real-viz-container">
+            <!-- Vraie image Key passes clustering -->
+            <img src="v2_keypasses_clustering.png" alt="Clustering des origines de Key Passes" class="real-viz-img">
+            <div class="viz-caption">Figure 10 - Application du DBSCAN pour identifier les hubs d'émission de passes décisives adverses.</div>
+        </div>
+
+        <div class="page-footer">Page 6</div>
+    </div>
+
+    <div class="page">
+        <div class="page-header"><span>07. Conclusions</span> <span>FC Barcelona 20/21</span></div>
+        
+        <h2>07. Recommandations Tactiques</h2>
+        <ol class="reco-list">
+            <li>
+                <strong>SÉCURISER LA SURFACE CENTRALE (Priorité Absolue)</strong>
+                Le modèle quantifie à 26.48 xGA le danger généré uniquement depuis l'axe de la surface de réparation (78% du xGA total). <em>Recommandation :</em> Augmenter la densité axiale dans les 18 mètres sur les phases de possession basse adverse. Marquage individuel strict exigé sur les joueurs atteignant des positions de tir à xG > 0.15.
+            </li>
+            <li>
+                <strong>GÉRER LES TRANSITIONS DÉFENSIVES</strong>
+                Un Line-Break Rate de 26% couplé à 15.5 pertes de balles critiques par match est le signal d'un déséquilibre structurel à la perte du ballon. <em>Recommandation :</em> Instaurer des exercices de repli défensif organisé immédiat (contre-pressing ou bloc médian) avec orientation forcée du porteur adverse vers l'extérieur.
+            </li>
+            <li>
+                <strong>ACTIVER LE PRESSING DANS LES HALF-SPACES</strong>
+                Les "Arrow Maps" (Fig. 6) montrent que la majorité des passes décisives trouvent leur origine dans les demi-espaces. <em>Recommandation :</em> Déclenchement d'un pressing latéral agressif (harcèlement) dès que le ballon pénètre ces zones pour empêcher la passe filtrante vers l'axe.
+            </li>
+        </ol>
+
+        <h3 style="margin-top: 3rem;">Méthodologie & Déploiement API</h3>
+        <p>L'intégralité de cette analyse (Notebooks 01 à 08) repose sur le pipeline développé en Python avec les bibliothèques `statsbombpy`, `pandas`, `scikit-learn` et `mplsoccer`. Le modèle prédictif xG final utilise `XGBoost` avec interprétabilité via `SHAP`.</p>
+        
+        <p>L'architecture logicielle de production (Notebook 09) est conçue selon le pattern "Abstract Base Class", ce qui la rend "Swap-Ready" : le flux de données peut basculer de StatsBomb vers Opta ou Wyscout sans modifier la logique d'inférence, prête pour un environnement de match en direct.</p>
+
+        <div class="page-footer">Page 7</div>
+    </div>
+
+</body>
+</html>

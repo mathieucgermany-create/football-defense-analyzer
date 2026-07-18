@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & OpenGraph -->
+  <title>Lexique Tactique — FDA Portfolio</title>
+  <meta name="description" content="Lexique des termes tactiques et Data (xG, SHAP, PPDA...) utilisés dans le projet Football Defense Analyzer.">
+  <meta property="og:title" content="Lexique Tactique — FDA Portfolio">
+  <meta property="og:description" content="Comprendre les statistiques avancées au football : xG, PPDA, SHAP...">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <!-- Polices optimisées (uniquement les graisses nécessaires) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <!-- Feuille de style principale -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo">FDA <span>//</span> RETOUR PORTFOLIO</a>
+</nav>
+
+<!-- CONTENU DU LEXIQUE -->
+<section style="padding-top: 120px; min-height: 100vh;">
+  <div class="container">
+    
+    <!-- En-tête : Alignement forcé à gauche comme demandé -->
+    <div class="section-header reveal" style="text-align: left; margin-bottom: 3.5rem;">
+      <span class="section-eyebrow">Dictionnaire</span>
+      <h2 class="section-title">Lexique Tactique & Data</h2>
+      <p class="section-body">
+        Comprendre les chiffres derrière le jeu. Voici les définitions simplifiées
+        des termes techniques utilisés dans l'analyse de ce projet.
+      </p>
+    </div>
+
+    <!-- Grille des termes (utilise les styles existants des tuiles) -->
+    <div class="steps-grid reveal">
+      
+      <div class="step-card">
+        <h3 class="step-title" style="color: var(--primary);">xG (Expected Goals)</h3>
+        <p class="step-desc">Probabilité qu'un tir devienne un but en fonction de sa position, de l'angle et de la qualité de la passe. Permet d'évaluer la qualité d'une occasion.</p>
+      </div>
+
+      <div class="step-card">
+        <h3 class="step-title" style="color: var(--primary);">xGA (Expected Goals Against)</h3>
+        <p class="step-desc">La somme des xG concédés par une équipe. Plus ce chiffre est bas, plus la défense a réussi à empêcher l'adversaire de prendre des tirs dangereux.</p>
+      </div>
+
+      <div class="step-card">
+        <h3 class="step-title" style="color: var(--primary);">PPDA</h3>
+        <p class="step-desc">"Passes Per Defensive Action". Mesure l'intensité du pressing : moins l'adversaire fait de passes avant que la défense n'intervienne, plus le pressing est haut et agressif (un PPDA bas est souvent signe de pressing intense).</p>
+      </div>
+
+      <div class="step-card">
+        <h3 class="step-title" style="color: var(--primary);">Line-Break Rate</h3>
+        <p class="step-desc">Le pourcentage de passes adverses qui réussissent à "casser" la ligne défensive pour avancer de plus de 15 mètres vers le but.</p>
+      </div>
+
+      <div class="step-card">
+        <h3 class="step-title" style="color: var(--primary);">Half-spaces</h3>
+        <p class="step-desc">Les "demi-espaces" situés entre l'axe central du terrain et les couloirs latéraux. C'est la zone la plus dangereuse car elle force les défenseurs centraux et latéraux à faire des choix de marquage compliqués.</p>
+      </div>
+
+      <div class="step-card">
+        <h3 class="step-title" style="color: var(--secondary);">SHAP Values</h3>
+        <p class="step-desc">Le "ticket de caisse" de l'Intelligence Artificielle. C'est une méthode mathématique qui explique pourquoi l'algorithme a pris une décision (ex: "+15% de chance de but car le gardien était mal placé").</p>
+      </div>
+
+      <div class="step-card">
+        <h3 class="step-title" style="color: var(--secondary);">Freeze Frames</h3>
+        <p class="step-desc">Des "arrêts sur image" au moment exact où un tir est déclenché. Ils permettent aux algorithmes d'analyser la position exacte des défenseurs et du gardien à cet instant précis.</p>
+      </div>
+
+      <div class="step-card">
+        <h3 class="step-title" style="color: var(--secondary);">KDE (Heatmap)</h3>
+        <p class="step-desc">"Kernel Density Estimation". Une méthode statistique qui lisse des points individuels (les tirs) pour en faire des "nuages" ou des cartes de chaleur lisibles.</p>
+      </div>
+
+      <div class="step-card">
+        <h3 class="step-title" style="color: var(--secondary);">DBSCAN & K-Means</h3>
+        <p class="step-desc">Des algorithmes de Machine Learning spatial (Clustering). Ils regroupent automatiquement les tirs très proches pour identifier de manière mathématique les zones où l'équipe souffre le plus.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">FDA // LEXIQUE</span>
+  <span class="footer-text">StatsBomb Open Data (CC BY-SA 4.0)</span>
+</footer>
+
+<!-- Script Javascript pour l'apparition au défilement -->
+<script>
+  document.querySelectorAll('.reveal').forEach(el => {
+    new IntersectionObserver(([e], observer) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    }, { threshold: 0.1 }).observe(el);
+  });
+</script>
+
+</body>
+</html>

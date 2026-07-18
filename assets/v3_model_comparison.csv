@@ -1,0 +1,4 @@
+Modèle,AUC-ROC test,Brier Score,CV AUC (mean),CV AUC (std),xG Total
+LogReg (V2+FF),0.8464,0.0757,0.761,0.0536,27.9
+XGBoost (V2+FF),0.7288,0.1119,0.723,0.0998,31.5
+StatsBomb xG,0.8627,0.0654,N/A,N/A,30.4
